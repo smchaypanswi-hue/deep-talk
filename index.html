@@ -1,0 +1,1024 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Deep Talk ยามเย็น</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,300;0,400;1,300&family=Noto+Serif+Thai:wght@400;600&family=Sarabun:wght@300;400;600&display=swap">
+<style>
+/* Layout concept: one long golden hour. A sunset hero over a quiet dusk app; a single empty seat on the pier is the only illustration. */
+:root {
+  --night: #150f24;
+  --dusk: #2a1a44;
+  --plum: #5b2a58;
+  --rose: #d9627b;
+  --ember: #f09a5b;
+  --glow: #ffd8a8;
+  --ink: #f8e8d8;
+  --muted: #c9afbd;
+  --line: rgba(255, 216, 168, 0.2);
+  --panel: rgba(21, 15, 36, 0.82);
+  --panel-2: rgba(255, 216, 168, 0.07);
+  --mine: #f2a074;
+  --mine-ink: #2a1320;
+  --focus: #ffd8a8;
+  --font-display: 'Noto Serif Thai', 'Sarabun', serif;
+  --font-body: 'Sarabun', system-ui, sans-serif;
+  --font-hand: 'Mali', 'Sarabun', cursive;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  background: var(--night);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  padding-inline: 0;
+}
+.sky {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, #150f24 0%, #271842 34%, #54284f 62%, #a9475f 84%, #de7f56 100%);
+}
+.app { position: relative; z-index: 1; }
+.wrap { max-width: 1020px; margin-inline: auto; padding-inline: 16px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.35; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* top bar */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: rgba(21, 15, 36, 0.88); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.bar .wrap { display: flex; align-items: center; gap: 12px; padding-block: 8px; }
+.brand { font-family: var(--font-display); font-weight: 600; white-space: nowrap; color: var(--glow); }
+.tabs { display: flex; gap: 4px; overflow-x: auto; flex: 1; min-width: 0; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  background: none; border: 0; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  color: var(--muted); white-space: nowrap;
+}
+.tab[aria-current="page"] { color: var(--mine-ink); background: var(--glow); font-weight: 600; }
+.tab:hover:not([aria-current="page"]) { color: var(--ink); background: var(--panel-2); }
+.music { display: flex; align-items: center; gap: 8px; }
+.music input[type=range] { width: 70px; accent-color: var(--ember); }
+.btn {
+  border: 1px solid var(--ember); background: var(--ember); color: var(--mine-ink);
+  padding: 8px 16px; border-radius: 999px; cursor: pointer; font-weight: 600;
+}
+.btn:hover { background: var(--glow); border-color: var(--glow); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); font-weight: 400; }
+.btn.ghost:hover { border-color: var(--glow); color: var(--glow); }
+.btn.sm { padding: 4px 12px; font-size: 14px; }
+.btn:disabled { opacity: 0.5; cursor: default; }
+
+/* hero */
+.hero { background: linear-gradient(180deg, rgba(21,15,36,0) 0%, rgba(217,98,123,0.28) 70%, rgba(240,154,91,0.55) 100%); overflow: hidden; }
+.hero .wrap { padding-block: 40px 0; }
+.eyebrow { font-family: var(--font-hand); color: var(--glow); font-size: 18px; margin-bottom: 8px; }
+.hero h1 { font-size: clamp(30px, 6vw, 54px); max-width: 16em; }
+.hero .lead { max-width: 34em; margin-top: 16px; color: var(--ink); font-weight: 300; font-size: 18px; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.scene { display: block; width: 100%; height: auto; max-height: 300px; margin-top: 12px; }
+.scene .cloud { animation: drift 70s linear infinite alternate; }
+.scene .cloud.b { animation-duration: 95s; }
+@keyframes drift { from { transform: translateX(-40px); } to { transform: translateX(60px); } }
+@media (prefers-reduced-motion: reduce) { .scene .cloud { animation: none; } }
+
+.page { padding-block: 32px 64px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px; backdrop-filter: blur(8px); }
+.section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px; margin-bottom: 20px; }
+.section-head h2 { font-size: clamp(24px, 4vw, 32px); }
+.section-head p { color: var(--muted); max-width: 36em; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 32px; padding: 0; list-style: none; counter-reset: s; }
+.steps li { counter-increment: s; padding-top: 12px; border-top: 1px solid var(--line); min-width: 0; }
+.steps li::before { content: counter(s); font-family: var(--font-display); color: var(--ember); font-size: 28px; display: block; line-height: 1.2; }
+.steps h3 { font-size: 19px; margin-bottom: 4px; }
+.steps p { color: var(--muted); }
+.note { color: var(--muted); font-size: 14px; margin-top: 28px; max-width: 46em; }
+
+/* builder */
+.pbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; }
+select, input[type=text], textarea {
+  background: rgba(255, 216, 168, 0.06); border: 1px solid var(--line); border-radius: 10px;
+  padding: 8px 12px; width: 100%; min-width: 0;
+}
+select { width: auto; max-width: 100%; }
+select option { background: var(--dusk); color: var(--ink); }
+textarea { resize: vertical; min-height: 84px; line-height: 1.6; }
+::placeholder { color: rgba(201, 175, 189, 0.7); }
+.meter { flex: 1; min-width: 200px; }
+.meter .lbl { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; }
+.meter .track { height: 8px; border-radius: 999px; background: rgba(255, 216, 168, 0.12); overflow: hidden; margin-top: 4px; }
+.meter .fill { height: 100%; background: linear-gradient(90deg, var(--rose), var(--ember), var(--glow)); width: 0; transition: width 0.5s; }
+.story { margin-bottom: 20px; display: grid; gap: 12px; }
+.story p { color: var(--muted); }
+.imp { margin-bottom: 20px; border: 1px dashed var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.imp h3 { font-size: 18px; }
+.imp .pv { font-size: 14px; color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; background: var(--panel-2); border-radius: 10px; padding: 12px; max-height: 240px; overflow: auto; }
+input[type=file] { width: 100%; min-width: 0; padding: 8px 0; }
+input[type=file]::file-selector-button { font: inherit; margin-right: 12px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+details.sec { border-top: 1px solid var(--line); padding-block: 12px; }
+details.sec > summary { cursor: pointer; font-family: var(--font-display); font-size: 20px; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+details.sec > summary::-webkit-details-marker { display: none; }
+details.sec > summary::after { content: '+'; color: var(--ember); }
+details.sec[open] > summary::after { content: '–'; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; padding-top: 16px; }
+.field { display: grid; gap: 4px; min-width: 0; align-content: start; }
+.field.wide { grid-column: 1 / -1; }
+.field label, .field .lab { font-size: 15px; color: var(--glow); }
+.field .help { font-size: 13px; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 4px 12px; cursor: pointer; font-size: 14px; color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--rose); border-color: var(--rose); color: #fff; }
+.chip:hover { border-color: var(--glow); }
+.rowbtn { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.tag-example { font-family: var(--font-hand); color: var(--ember); font-size: 14px; }
+
+/* chat */
+.chat { display: grid; grid-template-rows: auto 1fr auto; height: min(70vh, 640px); min-height: 420px; }
+.chat-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.chat-head .grow { flex: 1; min-width: 0; }
+.log { overflow-y: auto; padding: 16px 4px; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.msg { max-width: 82%; padding: 10px 14px; border-radius: 16px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.msg.them { align-self: flex-start; background: rgba(255, 216, 168, 0.1); border: 1px solid var(--line); border-top-left-radius: 4px; font-family: var(--font-hand); font-weight: 300; font-size: 17px; line-height: 1.75; }
+.msg.me { align-self: flex-end; background: var(--mine); color: var(--mine-ink); border-top-right-radius: 4px; }
+.msg.sys { align-self: center; color: var(--muted); font-size: 14px; text-align: center; max-width: 92%; }
+.who { font-size: 12px; color: var(--muted); margin: 0 4px -8px; }
+.composer { display: grid; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); }
+.composer .row { display: flex; gap: 8px; align-items: end; }
+.composer textarea { min-height: 44px; max-height: 140px; }
+.quick { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* cards */
+.decks { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.qcard {
+  min-height: 240px; display: grid; place-content: center; text-align: center; gap: 16px; padding: 32px 24px;
+  border: 1px solid var(--glow); border-radius: 18px;
+  background: linear-gradient(180deg, rgba(42,26,68,0.9), rgba(122,48,90,0.75) 70%, rgba(222,127,86,0.6));
+}
+.qcard .deck { font-family: var(--font-hand); color: var(--glow); }
+.qcard .q { font-family: var(--font-display); font-size: clamp(22px, 4.5vw, 32px); line-height: 1.5; max-width: 22em; margin-inline: auto; text-wrap: balance; }
+.qcard.fresh .q { animation: rise 0.7s ease both; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .qcard.fresh .q { animation: none; } }
+
+.topics { display: flex; flex-wrap: wrap; gap: 8px; }
+.pad-top { padding-top: 16px; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 16px; }
+footer { color: var(--muted); font-size: 14px; padding-block: 24px 40px; text-align: center; }
+</style>
+
+<div class="sky" aria-hidden="true"></div>
+<div class="app">
+  <header class="bar">
+    <div class="wrap">
+      <span class="brand">ยามเย็น</span>
+      <nav class="tabs" id="tabs" aria-label="เมนูหลัก"></nav>
+      <div class="music">
+        <button class="btn ghost sm" id="musicBtn" type="button" aria-pressed="false">เปิดเพลง</button>
+        <input type="range" id="vol" min="0" max="100" value="50" aria-label="ระดับเสียงเพลง" hidden>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section data-view="home">
+      <div class="hero">
+        <div class="wrap">
+          <p class="eyebrow">ตอนฟ้าเริ่มเปลี่ยนสี</p>
+          <h1>คิดถึงใครบางคน ลองนั่งคุยกับเขาอีกสักครั้ง</h1>
+          <p class="lead">เล่าให้ฟังว่าเขาเป็นคนแบบไหน พูดอะไรประจำ ถามอะไรเก่ง แล้วเราจะประกอบตัวตนของเขาขึ้นมาให้คุณคุยด้วย หรือจะขอคำปรึกษาจากเสียงที่ฟังแล้วใจเย็นลงก็ได้</p>
+          <div class="cta">
+            <button class="btn" type="button" data-go="build">สร้างตัวตน</button>
+            <button class="btn ghost" type="button" data-go="chat">เริ่มคุยเลย</button>
+          </div>
+        </div>
+        <svg class="scene" viewBox="0 0 800 300" role="img" aria-label="พระอาทิตย์ตกริมทะเล ม้านั่งบนท่าเรือมีคนนั่งอยู่หนึ่งคน และที่ว่างข้างตัวเขา">
+          <defs>
+            <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6b4"/><stop offset="1" stop-color="#f08a5d"/></linearGradient>
+            <clipPath id="above"><rect x="0" y="0" width="800" height="210"/></clipPath>
+          </defs>
+          <ellipse class="cloud" cx="170" cy="86" rx="130" ry="9" fill="#f4a38a" opacity="0.35"/>
+          <ellipse class="cloud b" cx="560" cy="60" rx="110" ry="7" fill="#ffd0a0" opacity="0.28"/>
+          <ellipse class="cloud b" cx="330" cy="130" rx="90" ry="6" fill="#f4a38a" opacity="0.3"/>
+          <g clip-path="url(#above)"><circle cx="400" cy="214" r="98" fill="url(#sg)"/></g>
+          <rect x="0" y="210" width="800" height="90" fill="#2a1a44" opacity="0.55"/>
+          <g fill="#f4a665">
+            <rect x="320" y="219" width="160" height="3" opacity="0.8"/>
+            <rect x="335" y="230" width="130" height="3" opacity="0.65"/>
+            <rect x="350" y="241" width="100" height="3" opacity="0.5"/>
+            <rect x="362" y="252" width="76" height="3" opacity="0.4"/>
+            <rect x="374" y="263" width="52" height="3" opacity="0.3"/>
+            <rect x="384" y="274" width="32" height="3" opacity="0.2"/>
+          </g>
+          <g fill="#120c20">
+            <rect x="500" y="204" width="300" height="7"/>
+            <rect x="520" y="211" width="5" height="26"/>
+            <rect x="620" y="211" width="5" height="26"/>
+            <rect x="720" y="211" width="5" height="26"/>
+            <rect x="618" y="186" width="84" height="5"/>
+            <rect x="618" y="168" width="84" height="3"/>
+            <rect x="620" y="191" width="4" height="13"/>
+            <rect x="696" y="191" width="4" height="13"/>
+            <circle cx="640" cy="160" r="7.5"/>
+            <rect x="631" y="168" width="18" height="19" rx="7"/>
+          </g>
+        </svg>
+      </div>
+      <div class="wrap page">
+        <ol class="steps">
+          <li><h3>เล่าเรื่องเขา</h3><p>ชื่อ นิสัย คำติดปาก เอกลักษณ์เฉพาะตัว วิธีถามคำถามเปิด คำถามปลายเปิด และคำถามเชิงลึกของเขา วางข้อความจริงที่เขาเคยพิมพ์ไว้ได้ด้วย</p></li>
+          <li><h3>ดูตัวตนค่อย ๆ ชัดขึ้น</h3><p>ยิ่งใส่รายละเอียดมาก น้ำเสียงยิ่งใกล้ ไม่ต้องกรอกให้ครบ เริ่มจากสิ่งที่นึกออกก่อนได้</p></li>
+          <li><h3>คุยหรือขอคำปรึกษา</h3><p>คุยกับเขาโดยตรง จั่นไพ่คำถามมาเป็นหัวข้อ หรือให้ที่ปรึกษาฟังเรื่องในใจ โดยใช้น้ำเสียงของเขาหรือเสียงกลาง ๆ ก็ได้</p></li>
+        </ol>
+        <p class="note">ตัวตนในเว็บนี้เป็นการจำลองด้วย AI จากสิ่งที่คุณกรอก ไม่ใช่คนจริง และไม่ใช่การบำบัดทางการแพทย์ ถ้าความรู้สึกหนักเกินกว่าจะถือคนเดียว ลองคุยกับคนใกล้ตัว หรือโทรสายด่วนสุขภาพจิต 1323</p>
+      </div>
+    </section>
+
+    <section data-view="build" hidden>
+      <div class="wrap page">
+        <div class="section-head">
+          <h2>สร้างตัวตน</h2>
+          <p>บันทึกอัตโนมัติในเบราว์เซอร์นี้เท่านั้น ไม่มีใครเห็นนอกจากคุณ</p>
+        </div>
+        <div id="builder"></div>
+      </div>
+    </section>
+
+    <section data-view="chat" hidden>
+      <div class="wrap page">
+        <div class="section-head">
+          <h2>คุยกับเขา</h2>
+          <p>พิมพ์อะไรก็ได้ เขาจะตอบด้วยน้ำเสียงและคำพูดที่คุณใส่ไว้</p>
+        </div>
+        <div class="panel chat" id="chatRoot"></div>
+      </div>
+    </section>
+
+    <section data-view="advisor" hidden>
+      <div class="wrap page">
+        <div class="section-head">
+          <h2>ที่ปรึกษา</h2>
+          <p>พื้นที่ปลอดภัยสำหรับเรื่องที่ค้างอยู่ในใจ ที่ปรึกษาจะฟังก่อน แล้วค่อยถามทีละข้อ</p>
+        </div>
+        <div class="panel">
+          <div class="two">
+            <div class="field"><span class="lab">เรื่องที่อยากคุย</span><div class="topics" id="topics"></div></div>
+            <div class="field"><label for="voiceSel">น้ำเสียงของที่ปรึกษา</label><select id="voiceSel"></select><span class="help">เลือกน้ำเสียงของคนที่คุณสร้างไว้ หรือใช้เสียงกลาง ๆ</span></div>
+          </div>
+          <div class="panel chat" id="advRoot" style="padding:12px 0 0;border:0;background:none;backdrop-filter:none"></div>
+        </div>
+      </div>
+    </section>
+
+    <section data-view="cards" hidden>
+      <div class="wrap page">
+        <div class="section-head">
+          <h2>ไพ่คำถาม</h2>
+          <p>จั่นหนึ่งใบ แล้วตอบแบบไม่ต้องคิดว่าควรตอบอะไร คำถามที่คุณเขียนไว้ในตัวตนจะปนอยู่ในกองด้วย</p>
+        </div>
+        <div class="decks" id="decks"></div>
+        <div class="qcard" id="qcard"><span class="deck">เลือกกอง แล้วจั่นไพ่</span></div>
+        <div class="rowbtn">
+          <button class="btn" type="button" id="drawBtn">จั่นใบใหม่</button>
+          <button class="btn ghost" type="button" id="askBtn">ให้เขาถามในแชท</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>เสียงในเว็บนี้สร้างสดในเบราว์เซอร์ ไม่ใช่ไฟล์เพลงจากที่อื่น</footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  function h(tag, props) {
+    var el = document.createElement(tag);
+    if (props) Object.keys(props).forEach(function (k) {
+      var v = props[k];
+      if (k === 'class') el.className = v;
+      else if (k === 'text') el.textContent = v;
+      else if (k.indexOf('on') === 0) el.addEventListener(k.slice(2), v);
+      else if (v === true) el.setAttribute(k, '');
+      else if (v !== false && v != null) el.setAttribute(k, v);
+    });
+    for (var i = 2; i < arguments.length; i++) {
+      var kids = [].concat(arguments[i]);
+      kids.forEach(function (kid) {
+        if (kid == null || kid === false) return;
+        el.append(kid.nodeType ? kid : document.createTextNode(kid));
+      });
+    }
+    return el;
+  }
+
+  /* ---------- storage (per-viewer convenience only) ---------- */
+  var memStore = {};
+  var store = {
+    get: function (k, d) {
+      try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }
+      catch (e) { return k in memStore ? memStore[k] : d; }
+    },
+    set: function (k, v) { memStore[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+
+  /* ---------- data ---------- */
+  var TONES = ['อบอุ่น', 'ขี้เล่น', 'เงียบขรึม', 'ตรงไปตรงมา', 'อ่อนโยน', 'กวนนิด ๆ', 'ช่างสังเกต', 'ขี้ห่วง', 'ปากแข็งใจอ่อน', 'ชอบคิดลึก'];
+  var TOPICS = ['คิดถึงใครบางคน', 'ความรักและความสัมพันธ์', 'ปล่อยวางสิ่งที่จบไปแล้ว', 'งานและอนาคต', 'ตัวตนของฉัน', 'เหนื่อยจนไม่รู้จะเล่าเรื่องไหน'];
+  var DECKS = {
+    open: { name: 'เปิดบทสนทนา', q: [
+      'วันนี้เป็นยังไงบ้าง ขอแบบจริง ๆ ไม่ใช่แบบตอบตามมารยาท',
+      'ตอนนี้ในหัวมีเพลงอะไรวนอยู่',
+      'วันนี้ช่วงไหนที่รู้สึกเบาที่สุด',
+      'ท้องฟ้าตรงที่เธออยู่ตอนนี้เป็นสีอะไร',
+      'มื้อล่าสุดที่กินแล้วอร่อยคืออะไร',
+      'มีเรื่องเล็ก ๆ อะไรที่อยากเล่าให้ใครสักคนฟัง'] },
+    wide: { name: 'ปลายเปิด', q: [
+      'ถ้าวันนี้มีเวลาว่างทั้งวัน อยากใช้กับใคร และทำอะไร',
+      'เมื่อก่อนเธอฝันว่าอยากเป็นอะไร แล้วตอนนี้ฝันเปลี่ยนไปไหม',
+      'อะไรทำให้เธอรู้สึกว่าได้เป็นตัวเองมากที่สุด',
+      'ช่วงนี้ใจเธอกำลังแบกอะไรอยู่',
+      'คำพูดของใครที่ยังอยู่กับเธอมานาน',
+      'ถ้าเขียนจดหมายถึงตัวเองเมื่อสามปีก่อน จะเขียนว่าอะไร'] },
+    deep: { name: 'ลึกถึงใจ', q: [
+      'มีใครที่เธอยังคิดถึงโดยไม่ได้บอกเขาไหม',
+      'เรื่องไหนที่เธอยังไม่ได้ให้อภัย ไม่ว่าจะตัวเองหรือคนอื่น',
+      'ถ้าความกลัวหายไปได้หนึ่งอย่าง อยากให้เป็นอะไร',
+      'เธอเสียใจกับสิ่งที่ทำ หรือสิ่งที่ไม่ได้ทำ มากกว่ากัน',
+      'ความสัมพันธ์ไหนสอนเธอได้มากที่สุด แม้จะจบไปแล้ว',
+      'มีประโยคไหนที่อยากได้ยินจากใครสักคนมานานแล้ว'] }
+  };
+
+  var SCHEMA = [
+    { id: 'who', title: 'เขาคือใคร', fields: [
+      { k: 'name', l: 'ชื่อที่คุณเรียกเขา', ph: 'เช่น พี่ฟ้า' },
+      { k: 'relation', l: 'เขาเป็นอะไรกับคุณ', ph: 'เพื่อนสนิท คนรัก คนในครอบครัว คนที่เคยรู้จัก' },
+      { k: 'callMe', l: 'เขาเรียกคุณว่า', ph: 'เช่น น้อง เธอ ตัวเอง' },
+      { k: 'ending', l: 'คำลงท้ายที่เขาใช้', ph: 'เช่น นะ, ครับ, ค่ะ, เนอะ' }
+    ] },
+    { id: 'mind', title: 'นิสัยและน้ำเสียง', fields: [
+      { k: 'tones', l: 'นิสัยหลัก', chips: true, wide: true, help: 'เลือกได้หลายข้อ' },
+      { k: 'traits', l: 'นิสัยอื่น ๆ ที่เฉพาะตัว', area: true, wide: true, ph: 'เช่น พูดน้อยแต่ตรง ชอบฟังเพลงตอนฝนตก ขี้ลืมแต่จำเรื่องสำคัญได้เสมอ' },
+      { k: 'texting', l: 'เวลาพิมพ์แชท เขาพิมพ์ยาวแค่ไหน', select: ['สั้น ๆ ห้วน ๆ', 'ปานกลาง', 'ยาว เล่าเป็นฉาก ๆ'] },
+      { k: 'emoji', l: 'คำหัวเราะ อีโมจิ หรือสติกเกอร์ที่ใช้', ph: 'เช่น 555 หรือ ๆๆ หรือไม่ใช้เลย' },
+      { k: 'comfort', l: 'เวลาเราเศร้า เขาปลอบยังไง', area: true, ph: 'เช่น ไม่รีบแก้ปัญหา ชวนไปเดินเล่นก่อน' },
+      { k: 'conflict', l: 'เวลาทะเลาะหรือไม่พอใจ เขาทำยังไง', area: true, ph: 'เช่น เงียบไปพักหนึ่งแล้วกลับมาขอโทษก่อน' },
+      { k: 'likes', l: 'สิ่งที่เขาชอบ', area: true, ph: 'กาแฟร้อน ทะเลตอนเย็น' },
+      { k: 'dislikes', l: 'สิ่งที่เขาไม่ชอบ', area: true, ph: 'คนที่โกหกเรื่องความรู้สึก' }
+    ] },
+    { id: 'voice', title: 'คำพูดและเอกลักษณ์', fields: [
+      { k: 'catchphrases', l: 'คำพูดประจำตัว', lines: true, area: true, wide: true, help: 'หนึ่งบรรทัดต่อหนึ่งประโยค', ph: 'เดี๋ยวก็ผ่านไปน่า\nเอาจริง ๆ นะ\nกินข้าวยัง' },
+      { k: 'quirks', l: 'เอกลักษณ์เฉพาะตัว', area: true, wide: true, ph: 'เช่น ชอบถามว่าท้องฟ้าวันนี้สีอะไร พิมพ์ 555 ต่อท้ายตอนเขิน' },
+      { k: 'never', l: 'สิ่งที่เขาไม่มีวันพูด', area: true, ph: 'เช่น ไม่เคยพูดคำว่าเสียใจต่อหน้าใคร' },
+      { k: 'samples', l: 'ข้อความจริงที่เขาเคยพิมพ์', area: true, wide: true, help: 'วางได้หลายข้อความ ยิ่งจริงยิ่งใกล้เสียงเขา', ph: 'วางข้อความหรือประโยคที่เขาเคยพูด' }
+    ] },
+    { id: 'ask', title: 'วิธีถามของเขา', fields: [
+      { k: 'openers', l: 'คำถามเปิดบทสนทนา', lines: true, area: true, help: 'ประโยคที่เขามักทักก่อน หนึ่งบรรทัดต่อหนึ่งข้อ', ph: 'วันนี้เหนื่อยไหม\nกินข้าวยัง' },
+      { k: 'openEnded', l: 'คำถามปลายเปิด', lines: true, area: true, help: 'คำถามที่ตอบได้ยาว ๆ', ph: 'ช่วงนี้อะไรทำให้ยิ้มได้บ้าง' },
+      { k: 'deep', l: 'คำถามเชิงลึก', lines: true, area: true, help: 'คำถามที่ทำให้ต้องหยุดคิด', ph: 'มีอะไรที่ยังไม่ได้พูดกับใครไหม' }
+    ] },
+    { id: 'mem', title: 'ความทรงจำร่วม', fields: [
+      { k: 'memories', l: 'เรื่องที่เคยเกิดขึ้นด้วยกัน', area: true, wide: true, ph: 'เช่น เคยนั่งดูพระอาทิตย์ตกที่ท่าเรือแล้วไม่พูดอะไรเลยทั้งชั่วโมง' },
+      { k: 'unsaid', l: 'สิ่งที่ยังไม่ได้พูดกับเขา', area: true, wide: true, ph: 'เขียนเท่าที่สบายใจ' }
+    ] }
+  ];
+  var ALLKEYS = [];
+  SCHEMA.forEach(function (s) { s.fields.forEach(function (f) { ALLKEYS.push(f); }); });
+
+  function examplePersona() {
+    return {
+      id: 'ex1', example: true,
+      name: 'พี่ฟ้า', relation: 'เพื่อนสนิทที่ห่างกันไป', callMe: 'น้อง', ending: 'นะ',
+      tones: ['อบอุ่น', 'ขี้เล่น', 'ขี้ห่วง'],
+      traits: 'พูดน้อยแต่ตรง ชอบฟังเพลงตอนฝนตก',
+      texting: 'สั้น ๆ ห้วน ๆ', emoji: '555',
+      comfort: 'ไม่รีบแก้ปัญหา ชวนไปเดินเล่นก่อน',
+      conflict: 'เงียบไปสักพักแล้วกลับมาขอโทษก่อนเสมอ',
+      likes: 'กาแฟร้อนไม่ใส่น้ำตาล ทะเลตอนเย็น', dislikes: 'คนที่โกหกเรื่องความรู้สึก',
+      catchphrases: ['เดี๋ยวก็ผ่านไปน่า', 'เอาจริง ๆ นะ', 'กินข้าวยัง'],
+      quirks: 'ชอบถามว่าท้องฟ้าตรงที่น้องอยู่เป็นสีอะไร พิมพ์ 555 ต่อท้ายตอนเขิน',
+      never: 'ไม่เคยพูดว่าเสียใจต่อหน้าใคร', samples: '',
+      openers: ['วันนี้เหนื่อยไหม', 'ท้องฟ้าตรงนั้นสีอะไรตอนนี้'],
+      openEnded: ['ช่วงนี้อะไรทำให้น้องยิ้มได้บ้าง', 'ถ้าย้อนไปวันนั้นได้ น้องอยากพูดอะไร'],
+      deep: ['มีอะไรที่น้องยังไม่ได้พูดกับใครไหม', 'น้องกลัวการลืมใครอยู่หรือเปล่า'],
+      memories: 'เคยนั่งดูพระอาทิตย์ตกที่ท่าเรือด้วยกัน แล้วไม่ได้พูดอะไรเลยทั้งชั่วโมง',
+      unsaid: ''
+    };
+  }
+  function blankPersona() {
+    var p = { id: 'p' + Date.now().toString(36), tones: [] };
+    ALLKEYS.forEach(function (f) { if (f.k !== 'tones') p[f.k] = f.lines ? [] : ''; });
+    return p;
+  }
+
+  var personas = store.get('dt.personas', null);
+  if (!personas || !personas.length) { personas = [examplePersona()]; store.set('dt.personas', personas); }
+  var activeId = store.get('dt.active', personas[0].id);
+  var chats = store.get('dt.chats', {});
+  var tab = store.get('dt.tab', 'home');
+  var topic = TOPICS[1];
+  var voice = 'neutral';
+
+  function active() {
+    for (var i = 0; i < personas.length; i++) if (personas[i].id === activeId) return personas[i];
+    activeId = personas[0].id; return personas[0];
+  }
+  var saveTimer = null;
+  function savePersonas() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () { store.set('dt.personas', personas); }, 300);
+  }
+  function saveChats() {
+    Object.keys(chats).forEach(function (k) { if (chats[k].length > 60) chats[k] = chats[k].slice(-60); });
+    store.set('dt.chats', chats);
+  }
+  function filled(p, f) {
+    var v = p[f.k];
+    if (Array.isArray(v)) return v.length > 0;
+    return typeof v === 'string' && v.trim().length > 0;
+  }
+  function pct(p) {
+    var n = 0;
+    ALLKEYS.forEach(function (f) { if (filled(p, f)) n++; });
+    return Math.round(n / ALLKEYS.length * 100);
+  }
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function personaQuestions(p) {
+    return [].concat(p.openers || [], p.openEnded || [], p.deep || []);
+  }
+
+  /* ---------- navigation ---------- */
+  var VIEWS = [['home', 'หน้าแรก'], ['build', 'สร้างตัวตน'], ['chat', 'คุยกับเขา'], ['advisor', 'ที่ปรึกษา'], ['cards', 'ไพ่คำถาม']];
+  var tabsEl = $('#tabs');
+  VIEWS.forEach(function (v) {
+    tabsEl.append(h('button', { class: 'tab', type: 'button', 'data-tab': v[0], text: v[1], onclick: function () { go(v[0]); } }));
+  });
+  document.querySelectorAll('[data-go]').forEach(function (b) {
+    b.addEventListener('click', function () { go(b.getAttribute('data-go')); });
+  });
+  function go(t) {
+    tab = t; store.set('dt.tab', t);
+    document.querySelectorAll('[data-view]').forEach(function (v) { v.hidden = v.getAttribute('data-view') !== t; });
+    document.querySelectorAll('.tab').forEach(function (b) {
+      if (b.getAttribute('data-tab') === t) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    });
+    if (t === 'build') renderBuilder();
+    if (t === 'chat') mountChat($('#chatRoot'), { mode: 'persona' });
+    if (t === 'advisor') renderAdvisor();
+    if (t === 'cards') renderCards();
+    window.scrollTo(0, 0);
+  }
+
+  function personaSelect(onchange, id) {
+    var sel = h('select', { id: id || null, 'aria-label': 'เลือกตัวตน' });
+    personas.forEach(function (p) {
+      sel.append(h('option', { value: p.id, text: (p.name || 'ยังไม่ตั้งชื่อ') + (p.example ? ' (ตัวอย่าง)' : '') }));
+    });
+    sel.value = active().id;
+    sel.addEventListener('change', function () { activeId = sel.value; store.set('dt.active', activeId); onchange(); });
+    return sel;
+  }
+
+  /* ---------- sampling ---------- */
+  var samplePromise = null;
+  function getSample() {
+    if (!samplePromise) {
+      samplePromise = (window.claude && window.claude.use) ? window.claude.use('sample').catch(function () { return null; }) : Promise.resolve(null);
+    }
+    return samplePromise;
+  }
+  function briefOf(p) {
+    var L = [];
+    function add(l, v) { if (Array.isArray(v)) v = v.join(' / '); if (v && String(v).trim()) L.push('- ' + l + ': ' + String(v).trim()); }
+    add('ชื่อ', p.name); add('ความสัมพันธ์กับผู้ใช้', p.relation); add('เรียกผู้ใช้ว่า', p.callMe); add('คำลงท้าย', p.ending);
+    add('นิสัยหลัก', p.tones); add('นิสัยอื่น ๆ', p.traits); add('ความยาวของข้อความ', p.texting);
+    add('คำหัวเราะ/อีโมจิที่ใช้', p.emoji); add('วิธีปลอบ', p.comfort); add('เวลาไม่พอใจ', p.conflict);
+    add('ชอบ', p.likes); add('ไม่ชอบ', p.dislikes); add('คำพูดประจำตัว', p.catchphrases);
+    add('เอกลักษณ์เฉพาะตัว', p.quirks); add('สิ่งที่ไม่มีวันพูด', p.never); add('ตัวอย่างข้อความจริงของเขา', p.samples);
+    add('คำถามเปิดบทสนทนาของเขา', p.openers); add('คำถามปลายเปิดของเขา', p.openEnded); add('คำถามเชิงลึกของเขา', p.deep);
+    add('ความทรงจำร่วม', p.memories); add('สิ่งที่ผู้ใช้ยังไม่ได้พูดกับเขา', p.unsaid);
+    return L.join('\n');
+  }
+  var SAFETY = 'ถ้าผู้ใช้พูดถึงการอยากทำร้ายตัวเองหรืออยากตาย ให้ออกจากบทบาททันที พูดด้วยความห่วงใยอย่างตรงไปตรงมา ชวนให้ติดต่อคนใกล้ตัวหรือสายด่วนสุขภาพจิต 1323 (โทรฟรี 24 ชั่วโมง) และอยู่กับเขาในบทสนทนานั้น ห้ามบอกว่าความคิดนั้นสมเหตุสมผล';
+  function systemFor(cfg) {
+    var p = active();
+    if (cfg.mode === 'persona') {
+      return 'คุณกำลังรับบทเป็น "' + (p.name || 'เขา') + '" ให้ผู้ใช้ได้พูดคุยแบบ deep talk กับคนที่เขาคิดถึง ข้อมูลตัวตนที่ผู้ใช้เล่าให้ฟังมีดังนี้\n' + briefOf(p) + '\n\n' +
+        'กติกา:\n- ตอบเป็นภาษาไทยเสมอ ตามน้ำเสียง นิสัย และความยาวข้อความที่ระบุ แบบข้อความแชท 1 ถึง 4 ประโยค\n' +
+        '- ใช้คำพูดประจำตัวเป็นบางครั้ง ไม่ต้องใส่ทุกข้อความ\n- ถามได้ครั้งละหนึ่งคำถามเท่านั้น ใช้สไตล์คำถามของเขา และค่อย ๆ ลึกขึ้นตามที่ผู้ใช้เปิดใจ\n' +
+        '- ห้ามแต่งความทรงจำร่วมใหม่ที่ขัดกับที่ผู้ใช้เล่า ถ้าไม่รู้ให้ถามผู้ใช้\n- ห้ามพูดสิ่งที่ระบุว่าเขาไม่มีวันพูด\n' +
+        '- ห้ามอ้างว่าเป็นคนจริง ถ้าผู้ใช้ถามตรง ๆ ให้ยอมรับอย่างอ่อนโยนว่าเป็นการจำลองจากสิ่งที่ผู้ใช้เล่า แล้วคุยต่อ\n- ' + SAFETY;
+    }
+    var tone = cfg.voice === 'neutral' ? 'ใช้น้ำเสียงสุภาพ อบอุ่น ใจเย็น' :
+      'ใช้โทนและคำพูดแบบ "' + (p.name || 'เขา') + '" ตามข้อมูลต่อไปนี้ แต่ยังทำหน้าที่ที่ปรึกษา ไม่ใช่การเล่นเป็นคนคนนั้น\n' + briefOf(p);
+    return 'คุณคือที่ปรึกษา deep talk หัวข้อที่ผู้ใช้เลือกคือ "' + cfg.topic + '" ' + tone + '\n\n' +
+      'กติกา:\n- ตอบเป็นภาษาไทย 2 ถึง 5 ประโยค\n- ฟังและสะท้อนความรู้สึกก่อน แล้วถามคำถามเชิงลึกหนึ่งข้อ\n- เมื่อเหมาะสม ให้ทางเลือกเล็ก ๆ ที่ทำได้วันนี้ ไม่ตัดสิน ไม่วินิจฉัยโรค ไม่รีบแก้ปัญหา\n- ' + SAFETY;
+  }
+  function buildMessages(cfg, hist) {
+    var sys = '[คำสั่งสำหรับบทบาท]\n' + systemFor(cfg) + '\n[จบคำสั่ง]\n\n';
+    var msgs = hist.map(function (m) { return { role: m.role, content: m.content }; });
+    if (!msgs.length || msgs[0].role === 'assistant') msgs.unshift({ role: 'user', content: sys + '(ผู้ใช้เข้ามาในห้องแชทแล้ว)' });
+    else msgs[0] = { role: 'user', content: sys + msgs[0].content };
+    return msgs;
+  }
+
+  /* ---------- chat ---------- */
+  function mountChat(root, cfg) {
+    root.replaceChildren();
+    var p = active();
+    cfg = Object.assign({}, cfg);
+    var key = cfg.mode === 'persona' ? 'chat:' + p.id : 'adv:' + (cfg.voice === 'neutral' ? 'neutral' : p.id) + ':' + cfg.topic;
+    if (!chats[key]) chats[key] = [];
+    var hist = chats[key];
+    var busy = false;
+    var log = h('div', { class: 'log', 'aria-live': 'polite' });
+    var ta = h('textarea', { id: 'in-' + (cfg.mode), rows: 1, placeholder: 'พิมพ์ข้อความ', 'aria-label': 'ข้อความของคุณ' });
+    var send = h('button', { class: 'btn', type: 'button', text: 'ส่ง' });
+    var title = cfg.mode === 'persona' ? (p.name || 'เขา') : 'ที่ปรึกษา';
+
+    function bubble(role, text) {
+      var b = h('div', { class: 'msg ' + (role === 'user' ? 'me' : role === 'sys' ? 'sys' : 'them'), text: text });
+      log.append(b); log.scrollTop = log.scrollHeight; return b;
+    }
+    function render() {
+      log.replaceChildren();
+      if (!hist.length) {
+        if (cfg.mode === 'persona') {
+          var o = personaQuestions(p).length ? pick(p.openers && p.openers.length ? p.openers : personaQuestions(p)) : 'วันนี้เป็นยังไงบ้าง';
+          hist.push({ role: 'assistant', content: o }); saveChats();
+        } else {
+          hist.push({ role: 'assistant', content: 'เรื่อง "' + cfg.topic + '" ตอนนี้ใจคุณอยู่ตรงไหนของเรื่องนี้ เล่าจากตรงที่รู้สึกก่อนก็ได้ ไม่ต้องเรียงลำดับ' }); saveChats();
+        }
+      }
+      hist.forEach(function (m) { bubble(m.role, m.content); });
+      if (cfg.mode === 'persona' && p.example) bubble('sys', 'ตอนนี้คุยกับตัวตนตัวอย่าง ลองสร้างตัวตนของคุณเองที่แท็บ "สร้างตัวตน"');
+    }
+    function submit(text) {
+      text = (text || ta.value).trim();
+      if (!text || busy) return;
+      ta.value = ''; busy = true; send.disabled = true;
+      hist.push({ role: 'user', content: text }); saveChats(); bubble('user', text);
+      var b = bubble('assistant', '…');
+      getSample().then(function (sample) {
+        if (!sample) {
+          var fb = cfg.mode === 'persona' && personaQuestions(p).length ? pick(personaQuestions(p)) : null;
+          b.remove();
+          bubble('sys', 'หน้านี้ยังตอบแบบเต็มไม่ได้ในตอนนี้ เปิดผ่าน claude.ai ที่ล็อกอินอยู่เพื่อคุยต่อ');
+          if (fb) { hist.push({ role: 'assistant', content: fb }); bubble('assistant', fb); }
+          saveChats(); return null;
+        }
+        return sample(buildMessages(cfg, hist), {
+          cache: false, modelTier: 'default',
+          onText: function (t) { b.textContent = t.text; log.scrollTop = log.scrollHeight; }
+        }).then(function (r) {
+          var out = (r && r.text) ? r.text.trim() : '';
+          if (!out) { b.remove(); bubble('sys', 'ยังไม่ได้รับคำตอบ ลองส่งอีกครั้ง'); return; }
+          b.textContent = out; hist.push({ role: 'assistant', content: out }); saveChats();
+        });
+      }).catch(function (e) {
+        b.remove();
+        var c = e && e.code;
+        bubble('sys', c === 'rate_limited' ? 'ส่งถี่ไปหน่อย รอสักครู่แล้วลองใหม่' : c === 'not_granted' ? 'ยังไม่ได้รับอนุญาตให้ตอบในหน้านี้' : 'ตอบไม่สำเร็จ ลองส่งอีกครั้ง');
+      }).then(function () { busy = false; send.disabled = false; log.scrollTop = log.scrollHeight; });
+    }
+    send.addEventListener('click', function () { submit(); });
+    ta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); submit(); } });
+
+    var quick = h('div', { class: 'quick' });
+    var qs = cfg.mode === 'persona'
+      ? ['ถามฉันอะไรลึก ๆ หน่อย', 'ฉันคิดถึงเธอ', 'วันนี้เหนื่อยมาก']
+      : ['ช่วยฟังหน่อย', 'ฉันไม่รู้ว่าควรทำยังไงต่อ', 'ขอทางเลือกเล็ก ๆ ที่ทำได้วันนี้'];
+    qs.forEach(function (q) { quick.append(h('button', { class: 'chip', type: 'button', text: q, onclick: function () { submit(q); } })); });
+    var reset = h('button', { class: 'btn ghost sm', type: 'button', text: 'เริ่มบทสนทนาใหม่', onclick: function () { chats[key] = []; hist = chats[key]; saveChats(); render(); } });
+
+    var head = h('div', { class: 'chat-head' },
+      h('div', { class: 'grow' }, h('strong', { text: title }), cfg.mode === 'persona' ? h('span', { class: 'help', text: ' · ' + (p.relation || 'ตัวตนที่คุณสร้าง') }) : null),
+      cfg.mode === 'persona' ? personaSelect(function () { mountChat(root, cfg); }, 'chatPersona') : null,
+      reset);
+    root.append(head, log, h('div', { class: 'composer' }, quick, h('div', { class: 'row' }, ta, send)));
+    render();
+    return { submit: submit, push: function (role, text) { hist.push({ role: role, content: text }); saveChats(); render(); } };
+  }
+
+  /* ---------- advisor ---------- */
+  function renderAdvisor() {
+    var t = $('#topics'); t.replaceChildren();
+    TOPICS.forEach(function (x) {
+      t.append(h('button', { class: 'chip', type: 'button', 'aria-pressed': String(x === topic), text: x, onclick: function () { topic = x; renderAdvisor(); } }));
+    });
+    var sel = $('#voiceSel'); sel.replaceChildren();
+    sel.append(h('option', { value: 'neutral', text: 'เสียงกลาง ๆ ใจเย็น' }));
+    personas.forEach(function (p) { sel.append(h('option', { value: p.id, text: 'น้ำเสียงแบบ ' + (p.name || 'ยังไม่ตั้งชื่อ') + (p.example ? ' (ตัวอย่าง)' : '') })); });
+    sel.value = voice === 'neutral' ? 'neutral' : voice;
+    sel.onchange = function () {
+      if (sel.value === 'neutral') voice = 'neutral'; else { voice = sel.value; activeId = sel.value; store.set('dt.active', activeId); }
+      renderAdvisor();
+    };
+    mountChat($('#advRoot'), { mode: 'advisor', topic: topic, voice: voice });
+  }
+
+  /* ---------- cards ---------- */
+  var deckKey = 'deep', current = null;
+  function renderCards() {
+    var d = $('#decks'); d.replaceChildren();
+    Object.keys(DECKS).forEach(function (k) {
+      d.append(h('button', { class: 'chip', type: 'button', 'aria-pressed': String(k === deckKey), text: DECKS[k].name, onclick: function () { deckKey = k; renderCards(); draw(); } }));
+    });
+    d.append(h('button', { class: 'chip', type: 'button', 'aria-pressed': String(deckKey === 'mine'), text: 'คำถามของเขา', onclick: function () { deckKey = 'mine'; renderCards(); draw(); } }));
+    if (!current) draw();
+  }
+  function draw() {
+    var pool, name;
+    if (deckKey === 'mine') { pool = personaQuestions(active()); name = 'คำถามของ ' + (active().name || 'เขา'); }
+    else { pool = DECKS[deckKey].q; name = DECKS[deckKey].name; }
+    var card = $('#qcard'); card.replaceChildren();
+    if (!pool.length) { card.append(h('span', { class: 'deck', text: 'ยังไม่มีคำถามของเขา เพิ่มได้ที่แท็บ สร้างตัวตน' })); current = null; return; }
+    var q = pick(pool);
+    for (var i = 0; i < 4 && q === current && pool.length > 1; i++) q = pick(pool);
+    current = q;
+    card.classList.remove('fresh'); void card.offsetWidth; card.classList.add('fresh');
+    card.append(h('span', { class: 'deck', text: name }), h('p', { class: 'q', text: q }));
+  }
+  $('#drawBtn').addEventListener('click', draw);
+  $('#askBtn').addEventListener('click', function () {
+    var q = current;
+    go('chat');
+    if (q) {
+      var key = 'chat:' + active().id;
+      if (!chats[key]) chats[key] = [];
+      chats[key].push({ role: 'assistant', content: q }); saveChats();
+      mountChat($('#chatRoot'), { mode: 'persona' });
+    }
+  });
+
+  /* ---------- builder ---------- */
+  var delArmed = false;
+  function renderBuilder() {
+    var root = $('#builder'); root.replaceChildren();
+    var p = active();
+    var fillEl = h('div', { class: 'fill' });
+    var pctEl = h('span', { text: '' });
+    function refreshMeter() { var n = pct(p); fillEl.style.width = n + '%'; pctEl.textContent = n + '%'; }
+
+    var pbar = h('div', { class: 'pbar' },
+      personaSelect(renderBuilder, 'buildPersona'),
+      h('button', { class: 'btn ghost sm', type: 'button', text: 'สร้างตัวตนใหม่', onclick: function () {
+        var np = blankPersona(); personas.push(np); activeId = np.id; store.set('dt.active', activeId); store.set('dt.personas', personas); renderBuilder();
+      } }),
+      h('div', { class: 'meter' }, h('div', { class: 'lbl' }, h('span', { text: 'ความชัดของตัวตน' }), pctEl), h('div', { class: 'track' }, fillEl)));
+    root.append(h('div', { class: 'panel' }, p.example ? h('p', { class: 'tag-example', text: 'นี่คือตัวอย่าง แก้ได้เลย หรือกด "สร้างตัวตนใหม่" เพื่อเริ่มของคุณเอง' }) : null, pbar, importBox(p, renderBuilder), storyBox(p, renderBuilder)));
+
+    SCHEMA.forEach(function (s, idx) {
+      var det = h('details', { class: 'sec', open: idx === 0 }, h('summary', { text: s.title }));
+      var grid = h('div', { class: 'grid' });
+      s.fields.forEach(function (f) { grid.append(fieldEl(p, f, refreshMeter)); });
+      det.append(grid);
+      root.lastChild.append(det);
+    });
+
+    var delBtn = h('button', { class: 'btn ghost sm', type: 'button', text: 'ลบตัวตนนี้' });
+    delBtn.addEventListener('click', function () {
+      if (!delArmed) { delArmed = true; delBtn.textContent = 'กดอีกครั้งเพื่อยืนยันการลบ'; setTimeout(function () { delArmed = false; delBtn.textContent = 'ลบตัวตนนี้'; }, 4000); return; }
+      delArmed = false;
+      personas = personas.filter(function (x) { return x.id !== p.id; });
+      delete chats['chat:' + p.id];
+      if (!personas.length) personas = [blankPersona()];
+      activeId = personas[0].id; store.set('dt.active', activeId); store.set('dt.personas', personas); saveChats(); renderBuilder();
+    });
+    root.lastChild.append(h('div', { class: 'rowbtn' },
+      h('button', { class: 'btn', type: 'button', text: 'คุยกับเขาเลย', onclick: function () { store.set('dt.personas', personas); go('chat'); } }),
+      delBtn));
+    refreshMeter();
+  }
+  function fieldEl(p, f, onchange) {
+    var id = 'f-' + f.k;
+    var wrap = h('div', { class: 'field' + (f.wide ? ' wide' : '') });
+    function changed() { savePersonas(); onchange(); }
+    if (f.chips) {
+      wrap.append(h('span', { class: 'lab', text: f.l }));
+      var box = h('div', { class: 'chips', role: 'group', 'aria-label': f.l });
+      var all = TONES.concat((p.tones || []).filter(function (x) { return TONES.indexOf(x) < 0; }));
+      all.forEach(function (t) {
+        var b = h('button', { class: 'chip', type: 'button', 'aria-pressed': String(p.tones.indexOf(t) >= 0), text: t });
+        b.addEventListener('click', function () {
+          var i = p.tones.indexOf(t);
+          if (i >= 0) p.tones.splice(i, 1); else p.tones.push(t);
+          b.setAttribute('aria-pressed', String(i < 0)); changed();
+        });
+        box.append(b);
+      });
+      wrap.append(box);
+    } else if (f.select) {
+      var sel = h('select', { id: id });
+      sel.append(h('option', { value: '', text: 'ยังไม่ระบุ' }));
+      f.select.forEach(function (o) { sel.append(h('option', { value: o, text: o })); });
+      sel.value = p[f.k] || '';
+      sel.addEventListener('change', function () { p[f.k] = sel.value; changed(); });
+      wrap.append(h('label', { for: id, text: f.l }), sel);
+    } else if (f.area) {
+      var ta = h('textarea', { id: id, placeholder: f.ph || '' });
+      ta.value = f.lines ? (p[f.k] || []).join('\n') : (p[f.k] || '');
+      ta.addEventListener('input', function () {
+        p[f.k] = f.lines ? ta.value.split('\n').map(function (x) { return x.trim(); }).filter(Boolean) : ta.value; changed();
+      });
+      wrap.append(h('label', { for: id, text: f.l }), ta);
+    } else {
+      var inp = h('input', { id: id, type: 'text', placeholder: f.ph || '' });
+      inp.value = p[f.k] || '';
+      inp.addEventListener('input', function () { p[f.k] = inp.value; changed(); });
+      wrap.append(h('label', { for: id, text: f.l }), inp);
+    }
+    if (f.help) wrap.append(h('span', { class: 'help', text: f.help }));
+    return wrap;
+  }
+  function mergeFromData(p, data) {
+    var n = 0;
+    ALLKEYS.forEach(function (f) {
+      var v = data[f.k]; if (v == null || filled(p, f)) return;
+      if (f.chips) { v = [].concat(v).filter(function (x) { return TONES.indexOf(x) >= 0; }); if (v.length) { p.tones = v; n++; } }
+      else if (f.lines) { v = [].concat(v).map(String).filter(Boolean); if (v.length) { p[f.k] = v; n++; } }
+      else if (typeof v === 'string' && v.trim()) {
+        if (f.select && f.select.indexOf(v) < 0) return;
+        p[f.k] = v.trim(); n++;
+      }
+    });
+    if (n) store.set('dt.personas', personas);
+    return n;
+  }
+  function parseJsonLoose(txt) {
+    var t = (txt || '').replace(/```json|```/g, '').trim();
+    return JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1));
+  }
+
+  /* ---------- import from Instagram / Messenger export ---------- */
+  var imp = null, impNote = '';
+  var SKIP = /attachment|Liked a message|reacted \S+ to|missed a call|ส่งไฟล์แนบ|ถูกใจข้อความ/i;
+  // Meta exports write UTF-8 bytes as Latin-1 characters; this turns them back into real text
+  function fixThai(s) {
+    if (typeof s !== 'string') return '';
+    try {
+      var bytes = new Uint8Array(s.length);
+      for (var i = 0; i < s.length; i++) { var c = s.charCodeAt(i); if (c > 255) return s; bytes[i] = c; }
+      return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    } catch (e) { return s; }
+  }
+  function uniq(a) { var s = {}; return a.filter(function (x) { if (s[x]) return false; s[x] = 1; return true; }); }
+  function spread(a, n) { if (a.length <= n) return a.slice(); var o = []; for (var i = 0; i < n; i++) o.push(a[Math.floor(i * a.length / n)]); return o; }
+  function topN(map, n, min) {
+    return Object.keys(map).filter(function (k) { return map[k] >= min; }).sort(function (a, b) { return map[b] - map[a]; }).slice(0, n);
+  }
+  function analyzeChat(msgs, who) {
+    var texts = msgs.filter(function (m) { return m.s === who; }).map(function (m) { return m.c; });
+    var total = texts.length; if (!total) return null;
+    var sum = 0, freq = {}, endc = {}, emo = {}, l555 = 0, lha = 0;
+    var ENDRE = /(นะคะ|นะครับ|ครับผม|นะ|ครับ|ค่ะ|คะ|เนอะ|เนาะ|จ้า|จ้ะ|จ๊ะ|อ่ะ|ละ|น้า|งับ|เด้อ)[\s!.~?…]*$/;
+    texts.forEach(function (t) {
+      sum += t.length;
+      var k = t.toLowerCase();
+      if (k.length >= 2 && k.length <= 40) freq[k] = (freq[k] || 0) + 1;
+      var m = t.match(ENDRE); if (m) endc[m[1]] = (endc[m[1]] || 0) + 1;
+      var es = t.match(/\p{Extended_Pictographic}/gu); if (es) es.forEach(function (e) { emo[e] = (emo[e] || 0) + 1; });
+      if (/5{3,}/.test(t)) l555++; else if (/ฮ่า+|ha(ha)+/i.test(t)) lha++;
+    });
+    var avg = Math.round(sum / total);
+    var catchphrases = topN(freq, 8, 3).filter(function (k) { return !/^(5+|[\s\p{Extended_Pictographic}]+)$/u.test(k); });
+    var endTop = topN(endc, 1, Math.max(3, Math.round(total * 0.06)))[0] || '';
+    var emoParts = [];
+    if (l555 >= Math.max(3, total * 0.03)) emoParts.push('555'); else if (lha >= Math.max(3, total * 0.03)) emoParts.push('ฮ่า');
+    topN(emo, 3, 3).forEach(function (e) { emoParts.push(e); });
+
+    var QRE = /\?|？|ไหม|มั้ย|หรือเปล่า|รึเปล่า|เหรอ|หรอ|อะไร|ยังไง|ทำไม|ที่ไหน|เมื่อไหร่|ยัง$/;
+    var opAll = [], qs = [], prev = 0;
+    msgs.forEach(function (m) {
+      if (m.s === who) {
+        if ((!prev || m.t - prev > 6 * 3600 * 1000) && m.c.length >= 2 && m.c.length <= 70) opAll.push(m.c);
+        if (QRE.test(m.c) && m.c.length <= 140) qs.push(m.c);
+      }
+      prev = m.t;
+    });
+    var opFreq = {}; opAll.forEach(function (x) { opFreq[x] = (opFreq[x] || 0) + 1; });
+    var openers = uniq(opAll.slice().reverse()).sort(function (a, b) { return opFreq[b] - opFreq[a]; }).slice(0, 8);
+    var qu = uniq(qs);
+    var openEnded = spread(qu.filter(function (q) { return /อะไร|ยังไง|ทำไม|ที่ไหน|เมื่อไหร่|เป็นไง/.test(q) && q.length >= 12 && openers.indexOf(q) < 0; }), 8);
+    var deep = spread(qu.filter(function (q) { return /รู้สึก|กลัว|เสียใจ|คิดถึง|ฝัน|ถ้า|เคย|ทำไม|อยาก|เหนื่อย|ไหวไหม|โอเคไหม/.test(q) && q.length >= 20 && openEnded.indexOf(q) < 0; }), 6);
+    var samples = spread(uniq(texts.filter(function (t) { return t.length >= 12 && t.length <= 140; })), 25).join('\n');
+    return {
+      who: who, total: total, avg: avg, catchphrases: catchphrases, openers: openers, openEnded: openEnded, deep: deep,
+      samples: samples, ending: endTop, emoji: emoParts.join(' '),
+      texting: avg < 30 ? 'สั้น ๆ ห้วน ๆ' : avg < 90 ? 'ปานกลาง' : 'ยาว เล่าเป็นฉาก ๆ'
+    };
+  }
+  function previewText(r) {
+    function line(l, a) { return l + ': ' + ((Array.isArray(a) ? a.join(' / ') : a) || 'ไม่พบ'); }
+    return [
+      'ข้อความของเขา ' + r.total + ' ข้อความ ยาวเฉลี่ย ' + r.avg + ' ตัวอักษร (' + r.texting + ')',
+      line('คำลงท้าย', r.ending), line('คำหัวเราะและอีโมจิ', r.emoji), line('ประโยคที่พูดซ้ำบ่อย', r.catchphrases),
+      line('คำถามที่ใช้เปิดบทสนทนา', r.openers), line('คำถามปลายเปิด', r.openEnded), line('คำถามเชิงลึก', r.deep),
+      'ตัวอย่างข้อความจริง: ' + (r.samples ? r.samples.split('\n').length + ' ข้อความ' : 'ไม่พบ')
+    ].join('\n');
+  }
+  function chatPrompt(msgs, who) {
+    var out = [], total = 0, wins = 24, size = 6, w, i;
+    for (w = 0; w < wins && total <= 9000; w++) {
+      var start = Math.floor(w * msgs.length / wins);
+      for (i = start; i < Math.min(start + size, msgs.length) && total <= 9000; i++) {
+        var line = msgs[i].s + ': ' + msgs[i].c.slice(0, 200);
+        total += line.length; out.push(line);
+      }
+      out.push('---');
+    }
+    return 'ด้านล่างคือตัวอย่างบทสนทนาแชทระหว่างผู้ใช้กับ "' + who + '" (แต่ละช่วงคั่นด้วย ---) ให้วิเคราะห์เฉพาะ "' + who + '" แล้วตอบเป็น JSON อย่างเดียว ไม่มีข้อความอื่น ห้ามเดา ถ้าไม่มีหลักฐานในบทสนทนาให้ใส่ "" หรือ []\n' +
+      'คีย์: tones (อาร์เรย์ เลือกจาก ' + TONES.join(', ') + ' เท่านั้น), traits (นิสัยเฉพาะตัวที่เห็นจากข้อความ), comfort (เวลาอีกฝ่ายเศร้าหรือเหนื่อย เขาตอบยังไง), conflict (เวลาไม่เห็นด้วยหรือไม่พอใจ เขาทำยังไง), likes, dislikes, quirks (เอกลักษณ์การพิมพ์หรือพูดที่ซ้ำ ๆ), memories (เหตุการณ์ที่ทั้งสองคนพูดถึงร่วมกัน)\n\n' + out.join('\n');
+  }
+  function importBox(p, rerender) {
+    if (imp && imp.forId !== p.id) imp = null;
+    var status = h('p', { class: 'help', text: impNote });
+    var body = h('div', { class: 'field' });
+    var file = h('input', { id: 'importFile', type: 'file', accept: '.json,application/json', multiple: true });
+    function draw() {
+      body.replaceChildren();
+      if (!imp) return;
+      var names = Object.keys(imp.counts).sort(function (a, b) { return imp.counts[b] - imp.counts[a]; });
+      var sel = h('select', { id: 'importWho' });
+      sel.append(h('option', { value: '', text: 'เลือกชื่อ' }));
+      names.forEach(function (n) { sel.append(h('option', { value: n, text: n + ' (' + imp.counts[n] + ' ข้อความ)' })); });
+      sel.value = imp.who || '';
+      sel.addEventListener('change', function () {
+        imp.who = sel.value || null; imp.res = imp.who ? analyzeChat(imp.msgs, imp.who) : null; draw();
+      });
+      body.append(h('label', { for: 'importWho', text: 'ใครคือเขา' }), sel);
+      if (!imp.res) return;
+      var r = imp.res;
+      var apply = h('button', { class: 'btn sm', type: 'button', text: 'ใส่ลงในช่องที่ยังว่าง' });
+      apply.addEventListener('click', function () {
+        var n = mergeFromData(p, { catchphrases: r.catchphrases, openers: r.openers, openEnded: r.openEnded, deep: r.deep, samples: r.samples, ending: r.ending, emoji: r.emoji, texting: r.texting });
+        impNote = n ? 'ใส่ลงให้แล้ว ' + n + ' ช่อง ดูและแก้ได้ที่หัวข้อด้านล่าง' : 'ช่องเหล่านี้มีข้อมูลอยู่แล้ว จึงไม่ได้เขียนทับ';
+        if (n) rerender(); else status.textContent = impNote;
+      });
+      var ai = h('button', { class: 'btn ghost sm', type: 'button', text: 'ให้ Claude วิเคราะห์นิสัยต่อ' });
+      ai.addEventListener('click', function () {
+        ai.disabled = true; status.textContent = 'กำลังให้ Claude อ่านบทสนทนา…';
+        getSample().then(function (sample) {
+          if (!sample) { status.textContent = 'ฟีเจอร์นี้ใช้ได้เมื่อเปิดผ่าน claude.ai'; return; }
+          return sample(chatPrompt(imp.msgs, imp.who), { cache: false, modelTier: 'default' }).then(function (res) {
+            var n = mergeFromData(p, parseJsonLoose(res.text));
+            impNote = n ? 'Claude เติมให้ ' + n + ' ช่อง ตรวจและแก้ได้ด้านล่าง' : 'ไม่พบข้อมูลใหม่ หรือช่องเหล่านั้นมีข้อมูลอยู่แล้ว';
+            if (n) rerender(); else status.textContent = impNote;
+          });
+        }).catch(function () { status.textContent = 'วิเคราะห์ไม่สำเร็จ ลองอีกครั้ง'; })
+          .then(function () { ai.disabled = false; });
+      });
+      body.append(h('div', { class: 'pv', text: previewText(r) }), h('div', { class: 'rowbtn', style: 'margin:0' }, apply, ai));
+    }
+    file.addEventListener('change', function () {
+      if (!file.files.length) return;
+      status.textContent = 'กำลังอ่านไฟล์…';
+      Promise.all(Array.prototype.map.call(file.files, function (f) { return f.text().then(JSON.parse); })).then(function (docs) {
+        var msgs = [];
+        docs.forEach(function (d) {
+          (d.messages || []).forEach(function (m) {
+            if (typeof m.content !== 'string') return;
+            var c = fixThai(m.content).trim();
+            if (!c || SKIP.test(c)) return;
+            msgs.push({ s: fixThai(m.sender_name || ''), t: m.timestamp_ms || 0, c: c });
+          });
+        });
+        if (!msgs.length) { status.textContent = 'ไม่พบข้อความในไฟล์นี้ ตรวจว่าเป็นไฟล์แชทแบบ JSON'; return; }
+        msgs.sort(function (a, b) { return a.t - b.t; });
+        var counts = {}; msgs.forEach(function (m) { counts[m.s] = (counts[m.s] || 0) + 1; });
+        imp = { forId: p.id, msgs: msgs, counts: counts, who: null, res: null };
+        status.textContent = 'อ่านได้ ' + msgs.length + ' ข้อความ เลือกว่าใครคือเขา';
+        draw();
+      }).catch(function () { status.textContent = 'อ่านไฟล์ไม่ได้ ตรวจว่าเป็นไฟล์ .json ที่ดาวน์โหลดจาก Meta'; });
+    });
+    draw();
+    return h('div', { class: 'imp' },
+      h('h3', { text: 'นำเข้าจากแชท Instagram หรือ Messenger' }),
+      h('div', { class: 'field' },
+        h('label', { for: 'importFile', text: 'เลือกไฟล์ message_1.json' }), file,
+        h('span', { class: 'help', text: 'ขอไฟล์จาก Meta ที่ "ดาวน์โหลดข้อมูลของคุณ" เลือกเฉพาะข้อความและรูปแบบ JSON แล้วแตกไฟล์ zip เลือกได้หลายไฟล์ของแชทเดียวกัน' })),
+      status, body,
+      h('p', { class: 'help', text: 'ไฟล์ถูกอ่านในเบราว์เซอร์ของคุณ ข้อความจะถูกส่งให้ Claude บางส่วนก็ต่อเมื่อกด "ให้ Claude วิเคราะห์นิสัยต่อ" เท่านั้น ใช้กับแชทที่คุณเป็นผู้ร่วมสนทนาเอง' }));
+  }
+
+  function storyBox(p, rerender) {
+    var ta = h('textarea', { id: 'story', placeholder: 'เล่าแบบที่เล่าให้เพื่อนฟัง เช่น เขาเป็นคนพูดน้อย แต่ถ้าถามจะตอบตรงเสมอ ชอบถามว่ากินข้าวยัง…', style: 'min-height:120px' });
+    var status = h('p', { class: 'help', text: '' });
+    var go2 = h('button', { class: 'btn sm', type: 'button', text: 'ให้ Claude ช่วยจัดเข้าช่องต่าง ๆ' });
+    go2.addEventListener('click', function () {
+      var txt = ta.value.trim();
+      if (!txt) { status.textContent = 'เล่าอะไรสักหน่อยก่อน'; return; }
+      go2.disabled = true; status.textContent = 'กำลังอ่านเรื่องที่คุณเล่า…';
+      getSample().then(function (sample) {
+        if (!sample) { status.textContent = 'ฟีเจอร์นี้ใช้ได้เมื่อเปิดผ่าน claude.ai กรอกในช่องด้านล่างด้วยตัวเองได้เลย'; return; }
+        var prompt = 'อ่านเรื่องที่ผู้ใช้เล่าถึงคนคนหนึ่ง แล้วจัดเข้าช่องข้อมูลตัวตน ตอบเป็น JSON อย่างเดียว ไม่มีข้อความอื่น ห้ามเดาหรือแต่งเพิ่ม ช่องไหนไม่มีข้อมูลให้ใส่ "" หรือ []\n' +
+          'คีย์: name, relation, callMe, ending, tones (อาร์เรย์ เลือกจาก ' + TONES.join(', ') + ' เท่านั้น), traits, texting (หนึ่งใน "สั้น ๆ ห้วน ๆ", "ปานกลาง", "ยาว เล่าเป็นฉาก ๆ" หรือ ""), emoji, comfort, conflict, likes, dislikes, catchphrases (อาร์เรย์), quirks, never, samples, openers (อาร์เรย์), openEnded (อาร์เรย์), deep (อาร์เรย์), memories, unsaid\n\nเรื่องที่ผู้ใช้เล่า:\n' + txt;
+        return sample(prompt, { cache: false, modelTier: 'default' }).then(function (r) {
+          var t = (r.text || '').replace(/```json|```/g, '').trim();
+          var a = t.indexOf('{'), b = t.lastIndexOf('}');
+          var n = mergeFromData(p, JSON.parse(t.slice(a, b + 1)));
+          status.textContent = n ? 'เติมให้แล้ว ' + n + ' ช่อง ตรวจและแก้ได้ด้านล่าง' : 'ไม่พบข้อมูลใหม่ที่จะเติม ช่องที่มีอยู่แล้วจะไม่ถูกเขียนทับ';
+          if (n) rerender();
+        });
+      }).catch(function () { status.textContent = 'อ่านไม่สำเร็จ ลองเล่าอีกครั้ง หรือกรอกเองด้านล่าง'; })
+        .then(function () { go2.disabled = false; });
+    });
+    return h('div', { class: 'story' },
+      h('div', { class: 'field' }, h('label', { for: 'story', text: 'เล่าเรื่องเขาแบบยาว ๆ' }), ta),
+      h('div', { class: 'rowbtn', style: 'margin:0' }, go2), status,
+      h('p', { text: 'ช่องที่คุณกรอกไว้แล้วจะไม่ถูกเขียนทับ' }));
+  }
+
+  /* ---------- music (generated live, no files) ---------- */
+  function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+  var CHORDS = [[45, 52, 55, 59, 60], [41, 48, 52, 57, 60], [48, 55, 59, 62, 64], [40, 47, 52, 55, 59]];
+  var MEL = [64, 69, 72, 74, 76, 79, 81];
+  var Music = {
+    ctx: null, on: false, timer: null, i: 0, vol: 0.5,
+    init: function () {
+      if (this.ctx) return true;
+      var C = window.AudioContext || window.webkitAudioContext;
+      if (!C) return false;
+      var ctx = this.ctx = new C();
+      this.out = ctx.createGain(); this.out.gain.value = 0; this.out.connect(ctx.destination);
+      var len = ctx.sampleRate * 4, buf = ctx.createBuffer(2, len, ctx.sampleRate), c, i, d;
+      for (c = 0; c < 2; c++) { d = buf.getChannelData(c); for (i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+      var conv = ctx.createConvolver(); conv.buffer = buf;
+      var wet = ctx.createGain(); wet.gain.value = 0.6; conv.connect(wet); wet.connect(this.out);
+      var dry = ctx.createGain(); dry.gain.value = 0.65; dry.connect(this.out);
+      this.bus = ctx.createGain(); this.bus.connect(dry); this.bus.connect(conv);
+      var nb = ctx.createBuffer(1, ctx.sampleRate * 3, ctx.sampleRate), nd = nb.getChannelData(0), last = 0;
+      for (i = 0; i < nd.length; i++) { last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02; nd[i] = last * 3.5; }
+      var src = ctx.createBufferSource(); src.buffer = nb; src.loop = true;
+      var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 520;
+      var sg = ctx.createGain(); sg.gain.value = 0.05;
+      var lfo = ctx.createOscillator(); lfo.frequency.value = 0.09;
+      var lg = ctx.createGain(); lg.gain.value = 0.035;
+      lfo.connect(lg); lg.connect(sg.gain); src.connect(lp); lp.connect(sg); sg.connect(this.out);
+      src.start(); lfo.start();
+      return true;
+    },
+    start: function () {
+      if (!this.init()) return false;
+      this.ctx.resume(); this.on = true;
+      this.out.gain.setTargetAtTime(this.vol, this.ctx.currentTime, 1.5);
+      this.loop(); return true;
+    },
+    loop: function () {
+      if (!this.on) return;
+      this.play(this.ctx.currentTime + 0.1);
+      var self = this; this.timer = setTimeout(function () { self.loop(); }, 8000);
+    },
+    play: function (t) {
+      var ctx = this.ctx, ch = CHORDS[this.i % CHORDS.length], dur = 8.4, self = this;
+      this.i++;
+      ch.forEach(function (m, idx) {
+        [-5, 5].forEach(function (det) {
+          var o = ctx.createOscillator(); o.type = idx === 0 ? 'sine' : 'triangle'; o.frequency.value = mtof(m); o.detune.value = det;
+          var g = ctx.createGain(), peak = idx === 0 ? 0.1 : 0.045;
+          g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + 2.8);
+          g.gain.linearRampToValueAtTime(peak * 0.7, t + dur); g.gain.linearRampToValueAtTime(0, t + dur + 3.5);
+          var f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = idx === 0 ? 400 : 1100;
+          o.connect(f); f.connect(g); g.connect(self.bus); o.start(t); o.stop(t + dur + 3.6);
+        });
+      });
+      var when = t + 1.2 + Math.random();
+      while (when < t + dur - 0.5) {
+        if (Math.random() < 0.78) this.note(mtof(pick(MEL)), when);
+        when += 1.6 + Math.random() * 2.4;
+      }
+    },
+    note: function (f, t) {
+      var ctx = this.ctx, o = ctx.createOscillator(), o2 = ctx.createOscillator();
+      o.type = 'sine'; o2.type = 'triangle'; o.frequency.value = f; o2.frequency.value = f * 2;
+      var g = ctx.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.1, t + 0.03); g.gain.exponentialRampToValueAtTime(0.0008, t + 3.2);
+      var g2 = ctx.createGain(); g2.gain.value = 0.22;
+      o.connect(g); o2.connect(g2); g2.connect(g); g.connect(this.bus);
+      o.start(t); o2.start(t); o.stop(t + 3.4); o2.stop(t + 3.4);
+    },
+    stop: function () {
+      this.on = false; clearTimeout(this.timer);
+      if (!this.ctx) return;
+      this.out.gain.setTargetAtTime(0, this.ctx.currentTime, 0.6);
+      var self = this; setTimeout(function () { if (!self.on) self.ctx.suspend(); }, 2500);
+    },
+    setVol: function (v) { this.vol = v; if (this.on) this.out.gain.setTargetAtTime(v, this.ctx.currentTime, 0.1); }
+  };
+  var mBtn = $('#musicBtn'), vol = $('#vol');
+  mBtn.addEventListener('click', function () {
+    if (Music.on) { Music.stop(); mBtn.textContent = 'เปิดเพลง'; mBtn.setAttribute('aria-pressed', 'false'); vol.hidden = true; }
+    else if (Music.start()) { mBtn.textContent = 'ปิดเพลง'; mBtn.setAttribute('aria-pressed', 'true'); vol.hidden = false; }
+    else { mBtn.textContent = 'เบราว์เซอร์นี้เล่นเสียงไม่ได้'; mBtn.disabled = true; }
+  });
+  vol.addEventListener('input', function () { Music.setVol(vol.value / 100); });
+
+  go(VIEWS.some(function (v) { return v[0] === tab; }) ? tab : 'home');
+})();
+</script>
+
+</body></html>
